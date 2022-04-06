@@ -1,5 +1,9 @@
 <?php
 
+
+require_once('../models/Product.php');
+
+
 class Disc extends Product
 {
     protected int $size;

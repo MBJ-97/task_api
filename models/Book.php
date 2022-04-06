@@ -1,5 +1,9 @@
 <?php
 
+
+require_once('../models/Product.php');
+
+
 class Book extends Product
 {
     protected int $weight;

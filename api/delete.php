@@ -11,17 +11,15 @@ require_once('../models/Product.php');
 
 
 //Instantiate product class
-$product = new Product();
+$product = new Database();
 
 // Get raw post data from POST
 $data = json_decode(file_get_contents("php://input"));
 
-//should be getter here
-$product->setId($data->id);
 
 //delete from db
 
-if($product->delete()){
+if($product->delete($data->id)){
     echo json_encode(
         array('message'=> 'Post deleted!!')
     );

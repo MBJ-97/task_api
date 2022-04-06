@@ -9,10 +9,10 @@ require_once('../models/Product.php');
 
 
 //Instantiate product class
-$product = new Product();
+$items = new Database();
 
 //execute query
-$results = $product->getProducts();
+$results = $items->findAll();
 
 // check count of result
 $count = $results->rowCount();
