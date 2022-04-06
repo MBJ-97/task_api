@@ -11,18 +11,16 @@ require_once('../models/Furniture.php');
 require_once('../models/Book.php');
 require_once('../models/Disc.php');
 
-// Instantiate DB object + connect tot it
-$database = new Database();
-$db = $database->connect();
-
 // Get raw post data from POST
 $data = json_decode(file_get_contents("php://input"));
+
+// Should check here if the SKU is unique or not then do next steps
 
 //get the value of type entry
 $value = $data->type;
 
 if ( $value == 'furniture') { // shit goes here
-    $fur = new Furniture($db);
+    $fur = new Furniture();
     $fur->setSku($data->sku);
     $fur->setName($data->name);
     $fur->setPrice($data->price);
@@ -41,7 +39,7 @@ if ( $value == 'furniture') { // shit goes here
         );
     }
 } elseif ($value == 'book') {
-    $book = new Book($db);
+    $book = new Book();
 
     $book->setSku($data->sku);
     $book->setName($data->name);
@@ -59,8 +57,8 @@ if ( $value == 'furniture') { // shit goes here
             array('message' => 'Post NOT created!!')
         );
     }
-} else {
-    $disc = new Disc($db);
+} elseif($value == 'disc') {
+    $disc = new Disc();
 
     $disc->setSku($data->sku);
     $disc->setName($data->name);
@@ -78,22 +76,6 @@ if ( $value == 'furniture') { // shit goes here
             array('message' => 'Post NOT created!!')
         );
     }
+} else {
+    return false;
 }
-
-//// set values
-//$product->setSku($data->sku);
-//$product->setName($data->name);
-//$product->setPrice($data->price);
-//$product->setType($data->type);
-//
-////Create the actual post
-//
-//if($product->setProduct()){
-//    echo json_encode(
-//        array('message'=> 'Post created!!')
-//    );
-//} else {
-//    echo json_encode(
-//        array('message' => 'Post NOT created!!')
-//    );
-//}

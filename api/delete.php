@@ -8,12 +8,10 @@ header('Access-Control-Allow-Methods: POST');
 require_once('../config/Database.php');
 require_once('../models/Product.php');
 
-// Instantiate DB object + connect tot it
-$database = new Database();
-$db = $database->connect();
+
 
 //Instantiate product class
-$product = new Product($db);
+$product = new Product();
 
 // Get raw post data from POST
 $data = json_decode(file_get_contents("php://input"));

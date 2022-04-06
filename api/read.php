@@ -8,12 +8,8 @@ require_once('../config/Database.php');
 require_once('../models/Product.php');
 
 
-// Instantiate DB object + connect tot it
-$database = new Database();
-$db = $database->connect();
-
 //Instantiate product class
-$product = new Product($db);
+$product = new Product();
 
 //execute query
 $results = $product->getProducts();
@@ -35,7 +31,11 @@ if($count > 0) {
             'name' => $name,
             'price'=> $price,
             'type' => $type,
-            'size' => $size
+            'size' => $size,
+            'weight' => $weight,
+            'height' => $height,
+            'width' => $width,
+            'length' => $length
         ];
 
         // push to res_array

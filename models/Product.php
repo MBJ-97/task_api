@@ -10,8 +10,12 @@ class Product
     protected int $price;
     protected  string $type;
 
-    public function __construct($db)
+    public function __construct()
     {
+        // Instantiate DB object + connect tot it
+        $database = new Database();
+        $db = $database->connect();
+
         $this->conn = $db;
     }
 
