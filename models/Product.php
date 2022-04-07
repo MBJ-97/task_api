@@ -14,7 +14,7 @@ abstract class Product
 
     public function __construct()
     {
-        // Instantiate DB object + connect tot it
+        // Instantiate DB object + connect to DB
         $database = new Database();
         $db = $database->connect();
 

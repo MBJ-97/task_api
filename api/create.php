@@ -8,13 +8,29 @@ header('Access-Control-Allow-Methods: POST');
 require_once('../models/Furniture.php');
 require_once('../models/Book.php');
 require_once('../models/Disc.php');
+require_once('../models/Records.php');
 
 // Get raw post data from POST
 $data = json_decode(file_get_contents("php://input"));
 
-// Should check here if the SKU is unique or not then do next steps
+//Get req sku
+$sku = $data->sku;
 
-//get the value of type entry
+// verify it's existence in DB
+$record = new Records();
+$result = $record->findOneBySku($sku);
+$row = $result->rowCount();
+
+// Check if it is null
+if($row)
+{
+    echo json_encode(
+        ['message'=> 'This SKU is already listed in DB. Please choose another SKU.']
+    );
+    return false;
+}
+
+// Get the value of type entry
 $value = $data->type;
 
 if ( $value == 'furniture') { // shit goes here
@@ -29,11 +45,11 @@ if ( $value == 'furniture') { // shit goes here
 
     if($fur->setFurniture()){
         echo json_encode(
-            array('message'=> 'Post created!!')
+            array('message'=> 'Furniture added !')
         );
     } else {
         echo json_encode(
-            array('message' => 'Post NOT created!!')
+            array('message' => 'Furniture NOT created!!')
         );
     }
 } elseif ($value == 'book') {
@@ -48,14 +64,14 @@ if ( $value == 'furniture') { // shit goes here
 
     if($book->setBook()){
         echo json_encode(
-            array('message'=> 'Post created!!')
+            array('message'=> 'Book added !')
         );
     } else {
         echo json_encode(
-            array('message' => 'Post NOT created!!')
+            array('message' => 'Book NOT created!!')
         );
     }
-} elseif($value == 'disc') {
+} elseif ($value == 'disc') {
     $disc = new Disc();
 
     $disc->setSku($data->sku);
@@ -67,11 +83,11 @@ if ( $value == 'furniture') { // shit goes here
 
     if($disc->setDisc()){
         echo json_encode(
-            array('message'=> 'Post created!!')
+            array('message'=> 'Disc added !')
         );
     } else {
         echo json_encode(
-            array('message' => 'Post NOT created!!')
+            array('message' => 'Disc NOT created!!')
         );
     }
 } else {

@@ -4,15 +4,15 @@
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 
-require_once('../config/Database.php');
+require_once('../models/Records.php');
 require_once('../models/Product.php');
 
 
 //Instantiate product class
-$items = new Database();
+$records = new Records();
 
 //execute query
-$results = $items->findAll();
+$results = $records->findAll();
 
 // check count of result
 $count = $results->rowCount();
