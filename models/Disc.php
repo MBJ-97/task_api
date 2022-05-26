@@ -8,14 +8,14 @@ class Disc extends Product
 {
     protected int $size;
 
-//    public function getSize()
-//    {
-//        return $this->size;
-//    }
-//    public function setSize($val)
-//    {
-//        $this->size = $val;
-//    }
+    public function getSize()
+    {
+        return $this->size;
+    }
+    public function setSize($val)
+    {
+        $this->size = $val;
+    }
 
     public function create($data): bool
     {
