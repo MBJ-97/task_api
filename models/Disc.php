@@ -8,16 +8,16 @@ class Disc extends Product
 {
     protected int $size;
 
-    public function getSize()
-    {
-        return $this->size;
-    }
-    public function setSize($val)
-    {
-        $this->size = $val;
-    }
+//    public function getSize()
+//    {
+//        return $this->size;
+//    }
+//    public function setSize($val)
+//    {
+//        $this->size = $val;
+//    }
 
-    public function setDisc(): bool
+    public function create($data): bool
     {
         //create the query
         $query ='
@@ -34,11 +34,11 @@ class Disc extends Product
         $stmt = $this->conn->prepare($query);
 
         // cleanup data (ppl are submitting it)
-        $this->sku = htmlspecialchars(strip_tags($this->sku));
-        $this->name = htmlspecialchars(strip_tags($this->name));
-        $this->price = htmlspecialchars(strip_tags($this->price));
-        $this->type = htmlspecialchars(strip_tags($this->type));
-        $this->size = htmlspecialchars(strip_tags($this->size));
+        $this->sku = htmlspecialchars(strip_tags($data->sku));
+        $this->name = htmlspecialchars(strip_tags($data->name));
+        $this->price = htmlspecialchars(strip_tags($data->price));
+        $this->type = htmlspecialchars(strip_tags($data->type));
+        $this->size = htmlspecialchars(strip_tags($data->size));
 
 
         // bind data with named params

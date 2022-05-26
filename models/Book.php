@@ -17,7 +17,7 @@ class Book extends Product
         $this->weight = $val;
     }
 
-    public function setBook()
+    public function create($data): bool
     {
         //create the query
         $query ='
@@ -34,11 +34,11 @@ class Book extends Product
         $stmt = $this->conn->prepare($query);
 
         // cleanup data (ppl are submitting it)
-        $this->sku = htmlspecialchars(strip_tags($this->sku));
-        $this->name = htmlspecialchars(strip_tags($this->name));
-        $this->price = htmlspecialchars(strip_tags($this->price));
-        $this->type = htmlspecialchars(strip_tags($this->type));
-        $this->weight = htmlspecialchars(strip_tags($this->weight));
+        $this->sku = htmlspecialchars(strip_tags($data->sku));
+        $this->name = htmlspecialchars(strip_tags($data->name));
+        $this->price = htmlspecialchars(strip_tags($data->price));
+        $this->type = htmlspecialchars(strip_tags($data->type));
+        $this->weight = htmlspecialchars(strip_tags($data->weight));
 
 
         // bind data with named params

@@ -35,7 +35,7 @@ class Furniture extends Product
         $this->length = $val;
     }
 
-    public function setFurniture()
+    public function create($data): bool
     {
         //create the query
         $query ='
@@ -54,13 +54,13 @@ class Furniture extends Product
         $stmt = $this->conn->prepare($query);
 
         // cleanup data (ppl are submitting it)
-        $this->sku = htmlspecialchars(strip_tags($this->sku));
-        $this->name = htmlspecialchars(strip_tags($this->name));
-        $this->price = htmlspecialchars(strip_tags($this->price));
-        $this->type = htmlspecialchars(strip_tags($this->type));
-        $this->height = htmlspecialchars(strip_tags($this->height));
-        $this->width = htmlspecialchars(strip_tags($this->width));
-        $this->length = htmlspecialchars(strip_tags($this->length));
+        $this->sku = htmlspecialchars(strip_tags($data->sku));
+        $this->name = htmlspecialchars(strip_tags($data->name));
+        $this->price = htmlspecialchars(strip_tags($data->price));
+        $this->type = htmlspecialchars(strip_tags($data->type));
+        $this->height = htmlspecialchars(strip_tags($data->height));
+        $this->width = htmlspecialchars(strip_tags($data->width));
+        $this->length = htmlspecialchars(strip_tags($data->length));
 
         // bind data with named params
         $stmt->bindParam(':sku', $this->sku);

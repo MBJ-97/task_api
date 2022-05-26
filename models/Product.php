@@ -64,4 +64,6 @@ abstract class Product
     {
         $this->type = $val;
     }
+
+    public function create($data){}
 }

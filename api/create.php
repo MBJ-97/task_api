@@ -6,7 +6,9 @@ header('Content-Type: application/json');
 header('Access-Control-Allow-Methods: POST');
 
 include('../models/Records.php');
+include('../models/Book.php');
 include('../models/Disc.php');
+include('../models/Furniture.php');
 
 // Get raw post data from POST
 $data = json_decode(file_get_contents("php://input"));
@@ -28,22 +30,27 @@ if($row)
     return false;
 }
 
-//Create the record
-$disc = new Disc();
+// instanciate classes
+$DISC = new Disc();
+$BOOK = new Book();
+$FURNITURE = new Furniture();
 
-$disc->setSku($data->sku);
-$disc->setName($data->name);
-$disc->setPrice($data->price);
-$disc->setType($data->type);
-$disc->setSize($data->size);
+//Check the post request and see which type is submitted
+$type= $data->type;
 
-
-if($disc->setDisc()){
+if ($type === 'disc'){
+    $DISC->create($data);
     echo json_encode(
-        array('message'=> 'Disc added !')
+        array('message'=> 'Disk added !')
     );
-} else {
+} elseif ($type === 'book'){
+    $BOOK->create($data);
     echo json_encode(
-        array('message' => 'Disc NOT created!!')
+        array('message'=> 'Book added !')
+    );
+} elseif ($type === 'furniture'){
+    $FURNITURE->create($data);
+    echo json_encode(
+        array('message'=> 'Furniture added !')
     );
 }
